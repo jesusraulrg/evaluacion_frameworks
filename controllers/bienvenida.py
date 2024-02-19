@@ -4,5 +4,9 @@ render = web.template.render('views/')
 
 class Bienvenida:
     def GET(self):
-        username = web.cookies().get("username")
-        return render.bienvenida(username)
+        cookies = web.cookies(username=None)
+        username = cookies.username
+        if username:
+            return render.bienvenida(username)
+        else:
+            raise web.seeother('/login')
